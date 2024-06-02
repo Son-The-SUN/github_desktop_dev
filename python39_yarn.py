@@ -5,16 +5,16 @@ import logging
 import os
 import signal
 curdir = os.path.dirname(os.path.realpath(__file__))
-logging.basicConfig(filename= curdir + "sonthesun_gh_desktop_log.txt",level=logging.DEBUG)
+logging.basicConfig(filename= f"{curdir}\\sonthesun_gh_desktop_log.txt",level=logging.DEBUG)
 logging.debug("I love you 3000")
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(f"{curdir}\\sonthesun_gh_desktop_log.txt")
 
 def check_port(port):
   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
       return s.connect_ex(('localhost', port)) == 0
 
 def kill_process_on_port(port):
-    command = f'netstat -ano | findstr :{port}'
+    command = f"netstat -ano | findstr :{port}"
     result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if result.returncode == 0:
         for line in result.stdout.splitlines():
