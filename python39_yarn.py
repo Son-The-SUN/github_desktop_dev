@@ -7,7 +7,7 @@ import signal
 curdir = os.path.dirname(os.path.realpath(__file__))
 logging.basicConfig(filename= curdir + "sonthesun_gh_desktop_log.txt",level=logging.DEBUG)
 logging.debug("I love you 3000")
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 def check_port(port):
   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -21,26 +21,21 @@ def kill_process_on_port(port):
             pid = line.split()[-1]
             os.kill(int(pid), signal.SIGTERM)
 
-def start_I_love_you_3000():
-  yarn_init = str(subprocess.check_output("yarn", shell=True))
+yarn_init = str(subprocess.check_output("yarn", shell=True))
 
-  logger(yarn_init)
+logger(yarn_init)
 
-  yarn_build_dev = str(subprocess.check_output("yarn build:dev", shell=True))
+yarn_build_dev = str(subprocess.check_output("yarn build:dev", shell=True))
 
-  logger(yarn_build_dev)
+logger(yarn_build_dev)
 
-  yarn_start = str(subprocess.check_output("yarn start", shell=True))
+yarn_start = str(subprocess.check_output("yarn start", shell=True))
 
-  logger(yarn_start)
+logger(yarn_start)
 
-  logger("I love you 3000")
+logger("I love you 3000")
 
-if __name__ == "__main__":
-  if check_port(3000):
-    kill_process_on_port(3000)
-  start_I_love_you_3000()
-
+print("I love you 3000")
 
 
 
