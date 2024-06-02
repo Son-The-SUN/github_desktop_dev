@@ -1,9 +1,9 @@
 {
   "repository": {
     "type": "git",
-    "url": "https://github.com/desktop/desktop.git"
+    "url": "https://github.com/Son-The-SUN/github_desktop_dev.git"
   },
-  "description": "GitHub Desktop build dependencies",
+  "description": "Son the sun's GitHub Desktop build dependencies",
   "scripts": {
     "cli": "ts-node --require ./app/test/globals.ts --require ./app/src/cli/dev-commands-global.ts app/src/cli/main.ts",
     "check:eslint": "tsc -P eslint-rules/",
@@ -41,14 +41,14 @@
     "validate-changelog": "ts-node -P script/tsconfig.json script/validate-changelog.ts"
   },
   "author": {
-    "name": "GitHub, Inc.",
-    "email": "opensource+desktop@github.com",
-    "url": "https://desktop.github.com/"
+    "name": "Son Nguyen, Inc",
+    "email": "tson.tom.nguyen@gmail.com",
+    "url": "https://github.com/Son-The-SUN/github_desktop_dev"
   },
   "license": "MIT",
   "engines": {
-    "node": ">= 10",
-    "yarn": ">= 1.9"
+    "node": ">= 22",
+    "yarn": ">= 1.22.19"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.13.0",
