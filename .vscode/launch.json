@@ -6,7 +6,7 @@
       "type": "debugpy",
       "program": "${workspaceFolder}/Python39/python.exe",
       "request": "launch",
-      "args": "${workspaceFolder}/manage.py runserver",
+      "args": "${workspaceFolder}/python39_yarn.py",
       "console": "integratedTerminal"
     },
     {
