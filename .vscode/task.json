@@ -1,8 +1,8 @@
 {
-  "version": "2.0.0",
+  "version": "0.0.1",
   "tasks": [
     {
-      "label": "Run PowerShell Script",
+      "label": "Run github desktop development",
       "type": "shell",
       "command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
       "args": ["-File", "${workspaceFolder}/script.ps1"],
