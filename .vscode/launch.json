@@ -2,6 +2,14 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "Debug: python39_yarn.py",
+      "type": "debugpy",
+      "program": "C:\\Python39\\python.exe",
+      "request": "launch",
+      "args": "${workspaceFolder}/manage.py runserver",
+      "console": "integratedTerminal"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Jest All",
