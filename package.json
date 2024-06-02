@@ -47,8 +47,8 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">= 22",
-    "yarn": ">= 1.22.19"
+    "node": ">= 20.11.1",
+    "yarn": ">= 1.21.1"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.13.0",
