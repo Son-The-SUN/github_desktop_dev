@@ -4,7 +4,7 @@
     {
       "name": "Debug: python39_yarn.py",
       "type": "debugpy",
-      "program": "C:\\Python39\\python.exe",
+      "program": "${workspaceFolder}/Python39/python.exe",
       "request": "launch",
       "args": "${workspaceFolder}/manage.py runserver",
       "console": "integratedTerminal"
