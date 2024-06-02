@@ -1,4 +1,5 @@
 import subprocess
+import webbrowser
 
 yarn_init = str(subprocess.check_output("yarn", shell=True))
 
@@ -12,4 +13,7 @@ yarn_start = str(subprocess.check_output("yarn start", shell=True))
 
 print(yarn_start)
 
+
+webbrowser.open("http://localhost:3000")
+print("Server is running on http://localhost:3000")
 
