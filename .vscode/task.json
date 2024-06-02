@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run PowerShell Script",
+      "type": "shell",
+      "command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "args": ["-File", "${workspaceFolder}/script.ps1"],
+      "problemMatcher": []
+    }
+  ]
+}
