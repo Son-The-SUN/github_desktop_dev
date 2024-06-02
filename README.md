@@ -1,4 +1,4 @@
-# [GitHub Desktop](https://desktop.github.com)
+# [Son's GitHub Desktop](https://github.com/Son-The-SUN/github_desktop_dev/)
 
 [GitHub Desktop](https://desktop.github.com/) is an open-source [Electron](https://www.electronjs.org/)-based
 GitHub app. It is written in [TypeScript](https://www.typescriptlang.org) and
