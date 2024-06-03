@@ -16,3 +16,6 @@ app/node_modules/
 junit*.xml
 *.swp
 tslint-rules/
+app/static/logos/icon-logo-old.ico
+app/static/logos/icon-logo-yellow-old.icns
+app/static/logos/icon-logo-yellow-old.ico
