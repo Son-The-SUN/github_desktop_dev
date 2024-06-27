@@ -1718,11 +1718,13 @@ export class App extends React.Component<IAppProps, IAppState> {
             showCommitLengthWarning={this.state.showCommitLengthWarning}
             notificationsEnabled={this.state.notificationsEnabled}
             optOutOfUsageTracking={this.state.optOutOfUsageTracking}
+            useExternalCredentialHelper={this.state.useExternalCredentialHelper}
             enterpriseAccount={this.getEnterpriseAccount()}
             repository={repository}
             onDismissed={onPopupDismissedFn}
             selectedShell={this.state.selectedShell}
             selectedTheme={this.state.selectedTheme}
+            selectedTabSize={this.state.selectedTabSize}
             repositoryIndicatorsEnabled={this.state.repositoryIndicatorsEnabled}
             onOpenFileInExternalEditor={this.openFileInExternalEditor}
             underlineLinks={this.state.underlineLinks}
@@ -1756,6 +1758,8 @@ export class App extends React.Component<IAppProps, IAppState> {
             signInState={this.state.signInState}
             dispatcher={this.props.dispatcher}
             onDismissed={onPopupDismissedFn}
+            isCredentialHelperSignIn={popup.isCredentialHelperSignIn}
+            credentialHelperUrl={popup.credentialHelperUrl}
           />
         )
       case PopupType.AddRepository:
@@ -3431,8 +3435,14 @@ export class App extends React.Component<IAppProps, IAppState> {
       ? ApplicationTheme.Light
       : this.state.currentTheme
 
+    const currentTabSize = this.state.selectedTabSize
+
     return (
-      <div id="desktop-app-chrome" className={className}>
+      <div
+        id="desktop-app-chrome"
+        className={className}
+        style={{ tabSize: currentTabSize }}
+      >
         <AppTheme theme={currentTheme} />
         {this.renderTitlebar()}
         {this.state.showWelcomeFlow

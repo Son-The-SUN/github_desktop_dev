@@ -43,7 +43,10 @@ import { Prompts } from './prompts'
 import { Repository } from '../../models/repository'
 import { Notifications } from './notifications'
 import { Accessibility } from './accessibility'
-import { enableLinkUnderlines } from '../../lib/feature-flag'
+import {
+  enableExternalCredentialHelper,
+  enableLinkUnderlines,
+} from '../../lib/feature-flag'
 
 interface IPreferencesProps {
   readonly dispatcher: Dispatcher
@@ -55,6 +58,7 @@ interface IPreferencesProps {
   readonly showCommitLengthWarning: boolean
   readonly notificationsEnabled: boolean
   readonly optOutOfUsageTracking: boolean
+  readonly useExternalCredentialHelper: boolean
   readonly initialSelectedTab?: PreferencesTab
   readonly confirmRepositoryRemoval: boolean
   readonly confirmDiscardChanges: boolean
@@ -67,6 +71,7 @@ interface IPreferencesProps {
   readonly selectedExternalEditor: string | null
   readonly selectedShell: Shell
   readonly selectedTheme: ApplicationTheme
+  readonly selectedTabSize: number
   readonly repositoryIndicatorsEnabled: boolean
   readonly onOpenFileInExternalEditor: (path: string) => void
   readonly underlineLinks: boolean
@@ -86,6 +91,7 @@ interface IPreferencesState {
   readonly showCommitLengthWarning: boolean
   readonly notificationsEnabled: boolean
   readonly optOutOfUsageTracking: boolean
+  readonly useExternalCredentialHelper: boolean
   readonly confirmRepositoryRemoval: boolean
   readonly confirmDiscardChanges: boolean
   readonly confirmDiscardChangesPermanently: boolean
@@ -110,6 +116,7 @@ interface IPreferencesState {
   readonly repositoryIndicatorsEnabled: boolean
 
   readonly initiallySelectedTheme: ApplicationTheme
+  readonly initiallySelectedTabSize: number
 
   readonly isLoadingGitConfig: boolean
   readonly globalGitConfigPath: string | null
@@ -141,6 +148,7 @@ export class Preferences extends React.Component<
       showCommitLengthWarning: false,
       notificationsEnabled: true,
       optOutOfUsageTracking: false,
+      useExternalCredentialHelper: false,
       confirmRepositoryRemoval: false,
       confirmDiscardChanges: false,
       confirmDiscardChangesPermanently: false,
@@ -154,6 +162,7 @@ export class Preferences extends React.Component<
       selectedShell: this.props.selectedShell,
       repositoryIndicatorsEnabled: this.props.repositoryIndicatorsEnabled,
       initiallySelectedTheme: this.props.selectedTheme,
+      initiallySelectedTabSize: this.props.selectedTabSize,
       isLoadingGitConfig: true,
       globalGitConfigPath: null,
       underlineLinks: this.props.underlineLinks,
@@ -207,6 +216,7 @@ export class Preferences extends React.Component<
       showCommitLengthWarning: this.props.showCommitLengthWarning,
       notificationsEnabled: this.props.notificationsEnabled,
       optOutOfUsageTracking: this.props.optOutOfUsageTracking,
+      useExternalCredentialHelper: this.props.useExternalCredentialHelper,
       confirmRepositoryRemoval: this.props.confirmRepositoryRemoval,
       confirmDiscardChanges: this.props.confirmDiscardChanges,
       confirmDiscardChangesPermanently:
@@ -226,6 +236,9 @@ export class Preferences extends React.Component<
   private onCancel = () => {
     if (this.state.initiallySelectedTheme !== this.props.selectedTheme) {
       this.onSelectedThemeChanged(this.state.initiallySelectedTheme)
+    }
+    if (this.state.initiallySelectedTabSize !== this.props.selectedTabSize) {
+      this.onSelectedTabSizeChanged(this.state.initiallySelectedTabSize)
     }
 
     this.props.onDismissed()
@@ -413,6 +426,8 @@ export class Preferences extends React.Component<
           <Appearance
             selectedTheme={this.props.selectedTheme}
             onSelectedThemeChanged={this.onSelectedThemeChanged}
+            selectedTabSize={this.props.selectedTabSize}
+            onSelectedTabSizeChanged={this.onSelectedTabSizeChanged}
           />
         )
         break
@@ -464,9 +479,13 @@ export class Preferences extends React.Component<
           <Advanced
             useWindowsOpenSSH={this.state.useWindowsOpenSSH}
             optOutOfUsageTracking={this.state.optOutOfUsageTracking}
+            useExternalCredentialHelper={this.state.useExternalCredentialHelper}
             repositoryIndicatorsEnabled={this.state.repositoryIndicatorsEnabled}
             onUseWindowsOpenSSHChanged={this.onUseWindowsOpenSSHChanged}
             onOptOutofReportingChanged={this.onOptOutofReportingChanged}
+            onUseExternalCredentialHelperChanged={
+              this.onUseExternalCredentialHelperChanged
+            }
             onRepositoryIndicatorsEnabledChanged={
               this.onRepositoryIndicatorsEnabledChanged
             }
@@ -529,6 +548,10 @@ export class Preferences extends React.Component<
 
   private onOptOutofReportingChanged = (value: boolean) => {
     this.setState({ optOutOfUsageTracking: value })
+  }
+
+  private onUseExternalCredentialHelperChanged = (value: boolean) => {
+    this.setState({ useExternalCredentialHelper: value })
   }
 
   private onConfirmRepositoryRemovalChanged = (value: boolean) => {
@@ -600,6 +623,10 @@ export class Preferences extends React.Component<
 
   private onShowDiffCheckMarksChanged = (showDiffCheckMarks: boolean) => {
     this.setState({ showDiffCheckMarks })
+  }
+
+  private onSelectedTabSizeChanged = (tabSize: number) => {
+    this.props.dispatcher.setSelectedTabSize(tabSize)
   }
 
   private renderFooter() {
@@ -685,6 +712,18 @@ export class Preferences extends React.Component<
       this.state.optOutOfUsageTracking,
       false
     )
+
+    if (enableExternalCredentialHelper()) {
+      if (
+        this.props.useExternalCredentialHelper !==
+        this.state.useExternalCredentialHelper
+      ) {
+        this.props.dispatcher.setUseExternalCredentialHelper(
+          this.state.useExternalCredentialHelper
+        )
+      }
+    }
+
     await this.props.dispatcher.setConfirmRepoRemovalSetting(
       this.state.confirmRepositoryRemoval
     )
