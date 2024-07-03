@@ -28,5 +28,5 @@ jobs:
             hesitate to reach out if you have or find the answers we need. If
             you answer our questions above, this issue will automatically
             reopen.
-          daysUntilClose: 7
-          responseRequiredLabel: more-info-needed
+          daysUntilClose: 1
+          responseRequiredLabel: no_answer
